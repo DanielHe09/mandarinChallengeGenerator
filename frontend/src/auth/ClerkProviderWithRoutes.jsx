@@ -9,9 +9,11 @@ if (!PUBLISHABLE_KEY) {
 }
 
 //initializing the clerkProvider object, which allows any resources or routes in 'children' to use the clerk components and functions
+//giving the children access to clerk resources is the SOLE purpose of this component
 export default function ClerkProviderWithRoutes({children}) {
     return (
         <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+            {/*browser router (imported library) gives children access to routing*/}
             <BrowserRouter>{children}</BrowserRouter>
         </ClerkProvider>
     )
