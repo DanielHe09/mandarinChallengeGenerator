@@ -14,6 +14,7 @@ function App() {
     <Routes>
       <Route path="/sign-in/*" element={<AuthenticationPage />} />
       <Route path="/sign-up/*" element={<AuthenticationPage />} />
+      {/*parent route then 2 children routes of the parent route, the parent route is just a way to organize multiple routes, not a page on it's own */}
       <Route element={<Layout />}>
         <Route path="/" element={<ChallengeGenerator />} />
         <Route path="/history" element={<HistoryPanel />} />
