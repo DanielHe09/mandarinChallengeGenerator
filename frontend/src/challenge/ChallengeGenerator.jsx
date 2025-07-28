@@ -19,5 +19,7 @@ export function ChallengeGenerator() {
 
     return <div className = "challenge-container">
         <h2>Mandarin Challenge Generator</h2>
+
+        <div></div>
     </div>
 }
