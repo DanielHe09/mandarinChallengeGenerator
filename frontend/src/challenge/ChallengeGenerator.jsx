@@ -33,12 +33,32 @@ export function ChallengeGenerator() {
             <label htmlFor="difficulty">Select Difficulty</label>
             <select
                 id="difficulty"
+                //controls which option is currently selected in the dropdown
                 value={difficulty}
-                /*updates state*/
+                /*updates state, e is the event that the selected item in the dropdown changes, and e.target.value is the value of the option
+                the user just picked*/
                 onChange={(e) => setDifficulty(e.target.value)}
                 disabled={isLoading}
             > 
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
             </select>
         </div>
+
+        {/*displays button to allow user to generate challenge */}
+        <button
+            onClick={generateChallenge}
+            //the button is disabled either when isLoading is true oor when quota_remaining === 0
+            disabled={isLoading || quota?.quota_remaining === 0}
+            className="generate-button"
+        >{isLoading ? "Generating..." : "Generate Challenge"}</button>
+
+        {/*displays an error message to the user when something goes wrong, the && says render this only if error===true */}
+        {error && <div className="error-message">
+            <p>{error}</p>    
+        </div>}
+
+        {challenge && <MCQChallenge challenge={challenge}/>}
     </div>
 }
