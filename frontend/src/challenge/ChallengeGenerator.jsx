@@ -20,6 +20,25 @@ export function ChallengeGenerator() {
     return <div className = "challenge-container">
         <h2>Mandarin Challenge Generator</h2>
 
-        <div></div>
+        {/*displays to users how many tokens/quotas they have left for today */}
+        <div className="quota-display">
+            {/*defaults to showing 0 if quota value is null*/}
+            <p>Challenges reamining today: {quota?.quota_remaining || 0}</p>
+            {quota?.quota_remianing === 0 && (
+                <p>Next reset: {0}</p>
+            )}
+        </div>
+        {/*a dropdown/<select> component with a label that allows users to select the difficulty of their challenge generated */}
+        <div className="difficulty-selector">
+            <label htmlFor="difficulty">Select Difficulty</label>
+            <select
+                id="difficulty"
+                value={difficulty}
+                /*updates state*/
+                onChange={(e) => setDifficulty(e.target.value)}
+                disabled={isLoading}
+            > 
+            </select>
+        </div>
     </div>
 }
