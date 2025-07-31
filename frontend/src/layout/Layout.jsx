@@ -22,7 +22,7 @@ export function Layout() {
         </header>
 
         {/*main is just the main content of your page, just like a div*/}
-        <main classname="app-main">
+        <main className="app-main">
             {/*if the user is signed out, navigate them to the sign in page */}
             <SignedOut>
                 <Navigate to="/sign-in" replace/>

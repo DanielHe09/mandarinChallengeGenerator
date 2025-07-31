@@ -6,7 +6,7 @@ import { useState } from "react"
 so it's good to make it a reusable component
 */
 export function MCQChallenge(challenge, showExplanation = false) {
-    const [selectedoption, setSelectedOption] = useState(null)
+    const [selectedOption, setSelectedOption] = useState(null)
     const[shouldShowExplanation, setShouldShowExplanation] = useState(showExplanation)
 
     {/*want the options to be JSON, so if they're strings we parse them into json */}
@@ -17,7 +17,7 @@ export function MCQChallenge(challenge, showExplanation = false) {
     {/*function that handles when the user selects an option */}
     const handleOptionSelect = (index) => {
         //if the user has already selected an option we return without doing anything, else we record the index of their selection
-        if (selectedoption !== null) return;
+        if (selectedOption !== null) return;
         setSelectedOption(index)
         setShouldShowExplanation(true)
     }
