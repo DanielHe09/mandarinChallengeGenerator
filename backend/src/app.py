@@ -1,10 +1,6 @@
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from clerk_backend_api import Clerk 
-import os
 
-#reading the clerk secret key from .env to create a clerk SDK instance for authentication
-clerk_sdk = Clerk(bearer_auth=os.getenv("CLERK_SECRET_KEY"))
 
 #creating a new FastAPI web server
 app = FastAPI()
