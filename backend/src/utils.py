@@ -1,7 +1,7 @@
 '''
 frontend
 - will authenticate with clerk
-- Clerkwill issue a javascript web token (JWT) each time a user logs in
+- Clerk will issue a javascript web token (JWT) each time a user logs in
 - this token is sent to the backend
 backend
 - connect to clerk by using the secret key
