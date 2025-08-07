@@ -7,6 +7,7 @@ from datetime import datetime
 engine = create_engine('sqlite:///database.db', echo=True)
 Base = declarative_base()
 
+#this is one database model that will be the template for the database table containing all challenges generated
 class Challenge(Base):
     __tablename__ = 'challenges'
 
@@ -18,3 +19,18 @@ class Challenge(Base):
     title = Column(String, nullable=False)
     options = Column(String, nullable=False)#values under this column will be like: 'option1, option2, ...'
     correct_answer_id = Column(Integer, nullable=False)
+    explanation = Column(String, nullable=False)
+
+#this database model will store how many quotas/challenges a user has
+class ChallengeQuota(Base):
+    __tablename__ = 'challenge_quotas'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(String, nullable=False, unique=True)
+    quota_remaining = Column(Integer, nullable=False, default=50)
+    last_reset_dat = Column(DateTime, default=datetime.now)
+
+#utilizing the database connection engine to create all the 'base' database models we defined in SQL
+Base.metadata.create_all(engine)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
