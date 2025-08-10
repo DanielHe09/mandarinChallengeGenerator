@@ -34,3 +34,11 @@ class ChallengeQuota(Base):
 Base.metadata.create_all(engine)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+#yields/gives us the same database ssion so we don't create a new one repeatedly
+def get_db():
+    db=SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
