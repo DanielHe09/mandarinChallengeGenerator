@@ -29,7 +29,36 @@ class ChallengeRequest(BaseModel):
 
 #post request for posting a challenge to the frontend
 @router.post("/generate_challenge")
+async def generate_challenge(request: ChallengeRequest, db: Session = Depends(get_db)):
+    try:
+        #authenticate user and get their details
+        user_details = authenticate_and_get_user_details(request)
+        user_id = user_details.get("user_id")
 
+        #call database function to see how many quota the user currently has
+        quota = get_challenge_quota(db, user_id)
+        #if there isn't an instance or row in the model, we create one for them
+        if not quota:
+            create_challenge_quota(db, user_id)
+
+        quota = reset_quota_if_needed(db, quota)
+
+        #if user has no more quota remaining we raise an exception
+        if quota.remaining_quota <= 0:
+            raise HTTPException(statuscode=429, detail = "Quota exhuasted")
+
+        challenge_data=None
+
+        #TODO: generate challenge
+
+        quota.remaining_quota -=1
+        db.commit()
+        
+        return challenge_data
+
+    except Exception as e:
+        #bad request exception code
+        raise HTTPException(status_code=400, detail=str(e))
 
 #router functions handle HTTP requests, which are inherently asynchronous
 #this is because making them async allows server to handle other requests while waiting (ex. for database to load in function)
