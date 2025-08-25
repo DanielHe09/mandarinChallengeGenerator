@@ -57,6 +57,10 @@ async def generate_challenge(request: ChallengeRequest, db: Session = Depends(ge
         return challenge_data
 
     except Exception as e:
+        #raise 'bad request' exception
+        raise HTTPException(status_code=400, detail=str(e))
+
+    except Exception as e:
         #bad request exception code
         raise HTTPException(status_code=400, detail=str(e))
 
