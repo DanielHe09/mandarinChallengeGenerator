@@ -39,3 +39,30 @@ def generate_challenge_with_ai(difficulty: str) -> Dict[str, Any]:
 
     Make sure the options are plausible but with only one clearly correct answer.
     """    
+    try:
+        #use the chat completions API instead of the Assistants API since it is better for simple one off conversations
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo-0125",
+            messsages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"Generate a {difficulty} difficulty coding challenge"}
+            ],
+            response_format={"type": "json_object"},
+            #the higher temperature you give the more random and creative a response the model wil give
+            temperature=0.5
+        )
+
+        #downloading the chatGPT response and checking that all required_fields are in the response
+        content = response.choices[0].message.content
+        challenge_data= json.loads(content)
+
+        required_fields = ["title", "options", "correct_answer_id", "explanation"]
+        for field in required_fields:
+            if field not in challenge_data:
+                raise ValueError(f"Missing required field: {field}")
+
+        return challenge_data
+
+    except Exception as e:
+        print(e)
+            
