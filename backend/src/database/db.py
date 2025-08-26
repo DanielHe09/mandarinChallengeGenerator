@@ -52,5 +52,5 @@ def create_challenge(
     return db_challenge
 
 #gets all the challenges createed a certain user
-db get_user_challenges(db: Session, user_id: str):
+def get_user_challenges(db: Session, user_id: str):
     return db.query(models.Challenge).filter(models.Challenge.created_by == user_id).all()
