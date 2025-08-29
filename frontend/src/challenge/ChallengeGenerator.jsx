@@ -1,6 +1,7 @@
 import "react"
 import { useState, useEffect } from "react"
 import {MCQChallenge} from "./MCQChallenge.jsx"
+import {useApi} from "../utils/api.js"
 
 export function ChallengeGenerator() {
     const [challenge, setChallenge] = useState(null)
@@ -8,6 +9,19 @@ export function ChallengeGenerator() {
     const [error, setError] = useState(null)
     const [difficulty, setDifficulty] = useState("easy")
     const[quota, setQuota] = useState(null)
+    //get the makeRequest functions from the useApi custom-made hook
+    const {makeRequest} = useApi()
+
+    //useEffect is a React hook that allows you to perform side effects outside/after the normal React render cycle
+    useEffect(() => {
+        fetchQuota()
+    }, [])
+
+    const fetchQota = async () => {
+        try {
+            const data = await makeRequest("quota")
+        }
+    }
 
     {/*function for seeing how many challenge generation tokens the user has left*/}
     const fetchQuota = async () => {}
