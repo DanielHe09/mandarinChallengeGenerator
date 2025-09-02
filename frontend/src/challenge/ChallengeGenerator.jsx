@@ -4,6 +4,7 @@ import {MCQChallenge} from "./MCQChallenge.jsx"
 import {useApi} from "../utils/api.js"
 
 export function ChallengeGenerator() {
+    //challenge, isLoading, error, etc. are just variables that aren't connected to anything; they're defined right here
     const [challenge, setChallenge] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -17,16 +18,34 @@ export function ChallengeGenerator() {
         fetchQuota()
     }, [])
 
-    const fetchQota = async () => {
+    {/*function for seeing how many challenge generation tokens the user has left*/}
+    const fetchQuota = async () => {
         try {
             const data = await makeRequest("quota")
+        } catch (error) {
+            console.log("Error fetching quota:", error)
         }
     }
 
-    {/*function for seeing how many challenge generation tokens the user has left*/}
-    const fetchQuota = async () => {}
+    {/*function for generating a challenge by calling the generate-challenge endpoint*/}
+    const generateChallenge = async() =>{
+        setIsLoading(true)
+        setError(null)
 
-    const generateChallenge = async() =>{}
+        try {
+            const data = await makeRequest("generate-challenge", {
+                /*defining the 'options' that we 'POST' to the backend since this is a POST request */
+                method: "POST",
+                body: JSON.stringify({difficulty})
+            })
+            setChallenge(data)
+            fetchQuota()
+        } catch (err) {
+            setError(err.message)
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     {/*determine how long till the user gets more credits (every 24h the user gets more credits) */}
     const getnextResetTime = () => {}
