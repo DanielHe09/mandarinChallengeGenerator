@@ -41,14 +41,19 @@ export function ChallengeGenerator() {
             setChallenge(data)
             fetchQuota()
         } catch (err) {
-            setError(err.message)
+            setError(err.message || "Failed to generate challenge.")
         } finally {
             setIsLoading(false)
         }
     }
 
     {/*determine how long till the user gets more credits (every 24h the user gets more credits) */}
-    const getnextResetTime = () => {}
+    const getnextResetTime = () => {
+        if (!quota?.last_reset_date) return null
+        const resetDate = new Date(quota.last_reset_date)
+        resetDate.setHours(resetDate.getHours() + 24)
+        return resetDate
+    }
 
     return <div className = "challenge-container">
         <h2>Mandarin Challenge Generator</h2>
@@ -56,8 +61,8 @@ export function ChallengeGenerator() {
         {/*displays to users how many tokens/quotas they have left for today */}
         <div className="quota-display">
             {/*defaults to showing 0 if quota value is null*/}
-            <p>Challenges reamining today: {quota?.quota_remaining || 0}</p>
-            {quota?.quota_remianing === 0 && (
+            <p>Challenges remaining today: {quota?.quota_remaining || 0}</p>
+            {quota?.quota_remaining === 0 && (
                 <p>Next reset: {0}</p>
             )}
         </div>
