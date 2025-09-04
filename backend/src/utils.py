@@ -30,7 +30,7 @@ def authenticate_and_get_user_details(request):
 
             #configures how clerk should authenticate the request
             AuthenticateRequestOptions(
-                authorized_parties=["http://localhost:5173"], #tells clerk which frontend URLs are allowed to make requests
+                authorized_parties=["http://localhost:5173", "http://localhost:5174"], #tells clerk which frontend URLs are allowed to make requests
                 jwt_key=os.getenv("JWT_KEY")
             )
         )

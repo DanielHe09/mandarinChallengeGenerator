@@ -33,7 +33,7 @@ export function ChallengeGenerator() {
         setError(null)
 
         try {
-            const data = await makeRequest("generate-challenge", {
+            const data = await makeRequest("generate_challenge", {
                 /*defining the 'options' that we 'POST' to the backend since this is a POST request */
                 method: "POST",
                 body: JSON.stringify({difficulty})
@@ -63,7 +63,7 @@ export function ChallengeGenerator() {
             {/*defaults to showing 0 if quota value is null*/}
             <p>Challenges remaining today: {quota?.quota_remaining || 0}</p>
             {quota?.quota_remaining === 0 && (
-                <p>Next reset: {0}</p>
+                <p>Next reset: {getNextResetTime()?.toLocaleString()}</p>
             )}
         </div>
         {/*a dropdown/<select> component with a label that allows users to select the difficulty of their challenge generated */}

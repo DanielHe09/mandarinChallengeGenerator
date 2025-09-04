@@ -30,10 +30,10 @@ class ChallengeRequest(BaseModel):
 
 #post request for posting a challenge to the frontend
 @router.post("/generate_challenge")
-async def generate_challenge(request: ChallengeRequest, db: Session = Depends(get_db)):
+async def generate_challenge(request: ChallengeRequest, http_request: Request, db: Session = Depends(get_db)):
     try:
         #authenticate user and get their details
-        user_details = authenticate_and_get_user_details(request)
+        user_details = authenticate_and_get_user_details(http_request)
         user_id = user_details.get("user_id")
 
         #call database function to see how many quota the user currently has

@@ -4,9 +4,7 @@ from . import models
 
 #these are functions to query information from the database models
 def get_challenge_quota(db: Session, user_id: str):
-    return db.query(models.ChallengeQuota
-                    .filter(models.ChallengeQuota.user_id == user_id)
-                    .first())
+    return db.query(models.ChallengeQuota).filter(models.ChallengeQuota.user_id == user_id).first()
 
 #creates an instance of the ChallengeQuota model
 def create_challenge_quota(db: Session, user_id: str):

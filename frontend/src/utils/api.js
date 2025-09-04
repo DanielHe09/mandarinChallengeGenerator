@@ -11,12 +11,12 @@ export const useApi = () => {
         const defaultOptions = {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ${token}'
+                "Authorization": `Bearer ${token}`
             }
         }
 
         //get make request and get request from backend
-        const response = await fetch('http://localhost:8000/api/${endpoint}', {
+        const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
             /*
             the three dots is the spread operators, we combine the two objects by spreading their properties.
             any key-value pairs that are not in 'options' we replace with the ones in 'defaultOptions'
