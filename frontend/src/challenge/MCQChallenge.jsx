@@ -6,6 +6,10 @@ import { useState } from "react"
 so it's good to make it a reusable component
 */
 export function MCQChallenge(challenge, showExplanation = false) {
+    console.log("DEBUG: Challenge object:", challenge);
+    console.log("DEBUG: Challenge.options:", challenge.options);
+    console.log("DEBUG: Type of challenge.options:", typeof challenge.options);
+    
     const [selectedOption, setSelectedOption] = useState(null)
     const[shouldShowExplanation, setShouldShowExplanation] = useState(showExplanation)
 
@@ -13,6 +17,7 @@ export function MCQChallenge(challenge, showExplanation = false) {
     const options = typeof challenge.options === "string"
         ? JSON.parse(challenge.options)
         :challenge.options
+
     
     {/*function that handles when the user selects an option */}
     const handleOptionSelect = (index) => {
