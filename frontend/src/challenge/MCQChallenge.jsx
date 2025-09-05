@@ -5,7 +5,7 @@ import { useState } from "react"
 /*decided to make this it's own separate component because we will have multiple challenges shown on the website in the history tab
 so it's good to make it a reusable component
 */
-export function MCQChallenge(challenge, showExplanation = false) {
+export function MCQChallenge({challenge, showExplanation = false}) {
     console.log("DEBUG: Challenge object:", challenge);
     console.log("DEBUG: Challenge.options:", challenge.options);
     console.log("DEBUG: Type of challenge.options:", typeof challenge.options);
