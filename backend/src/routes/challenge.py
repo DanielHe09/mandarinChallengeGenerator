@@ -35,6 +35,7 @@ async def generate_challenge(request: ChallengeRequest, http_request: Request, d
         #authenticate user and get their details
         user_details = authenticate_and_get_user_details(http_request)
         user_id = user_details.get("user_id")
+        print("DEBUG: User authenticated, user_id:", user_id)
 
         #call database function to see how many quota the user currently has
         quota = get_challenge_quota(db, user_id)
@@ -43,12 +44,19 @@ async def generate_challenge(request: ChallengeRequest, http_request: Request, d
             create_challenge_quota(db, user_id)
 
         quota = reset_quota_if_needed(db, quota)
+        print("DEBUG: After reset check, quota:", quota.quota_remaining)
 
         #if user has no more quota remaining we raise an exception
-        if quota.remaining_quota <= 0:
-            raise HTTPException(statuscode=429, detail = "Quota exhuasted")
+        if quota.quota_remaining <= 0:
+            raise HTTPException(status_code=429, detail = "Quota exhuasted")
 
-        challenge_data=generate_challenge_with_ai(request.difficulty)
+        print("DEBUG: About to call AI generator...")
+        challenge_data = generate_challenge_with_ai(request.difficulty)
+        print("DEBUG: AI returned:", challenge_data)
+        # DEBUG: print the raw challenge payload and its type for inspection
+        print("challenge_data:", challenge_data, "type:", type(challenge_data))
+        if not challenge_data:
+            raise HTTPException(status_code=500, detail="AI challenge generation failed")
 
         #creating a new instance/row for the new challenge generated in the database model
         new_challenge = create_challenge(
@@ -57,9 +65,11 @@ async def generate_challenge(request: ChallengeRequest, http_request: Request, d
             created_by=user_id,
             **challenge_data
         )
+        print("DEBUG: Challenge created successfully")
 
-        quota.remaining_quota -=1
+        quota.quota_remaining -=1
         db.commit()
+        print("DEBUG: Quota decremented and committed")
         
         return {
             "id": new_challenge.id,
@@ -72,6 +82,8 @@ async def generate_challenge(request: ChallengeRequest, http_request: Request, d
         }
 
     except Exception as e:
+        print("DEBUG: Exception caught:", repr(e))
+        print("DEBUG: Exception type:", type(e))
         #raise 'bad request' exception
         raise HTTPException(status_code=400, detail=str(e))
 
