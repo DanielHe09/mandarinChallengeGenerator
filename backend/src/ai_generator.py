@@ -65,6 +65,10 @@ def generate_challenge_with_ai(difficulty: str) -> Dict[str, Any]:
 
         print("DEBUG: response from AI generator:", response)
 
+        #changing the options from a list to a JSON string since sqlite doesn't support lists
+        challenge_data["options"] = json.dumps(challenge_data["options"])
+
+        #raise an error if any of the required fields/dictionary key value pairs are missing
         required_fields = ["title", "options", "correct_answer_id", "explanation"]
         for field in required_fields:
             if field not in challenge_data:
@@ -74,4 +78,4 @@ def generate_challenge_with_ai(difficulty: str) -> Dict[str, Any]:
 
     except Exception as e:
         print(e)
-            
+        
