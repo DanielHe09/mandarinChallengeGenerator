@@ -1,8 +1,10 @@
 import "react"
 import {useState, useEffect} from "react"
 import { MCQChallenge } from "../challenge/MCQChallenge"
+import {useApi} from "../utils/api"
 
 export function HistoryPanel() {
+    const {makeRequest} = useApi()
     const[history, setHistory] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const[error, setError] = useState(null)
@@ -14,7 +16,18 @@ export function HistoryPanel() {
     }, [])
 
     const fetchHistory = async () => {
-        setIsLoading(false)
+        setIsLoading(true)
+        setError(null)
+
+        try {
+            const data = await makeRequest("my-history")
+            setHistory(data.challenges)
+        } catch (err) {
+            setError(err.message || "Failed to fetch history.")
+        } finally {
+            setIsLoading(false)
+        }
+
     }
 
     {/*preparing different return statements based on the status of our page */}
