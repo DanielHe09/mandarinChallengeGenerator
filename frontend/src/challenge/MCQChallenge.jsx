@@ -17,7 +17,6 @@ export function MCQChallenge({challenge, showExplanation = false}) {
     const options = typeof challenge.options === "string"
         ? JSON.parse(challenge.options)
         :challenge.options
-
     
     {/*function that handles when the user selects an option */}
     const handleOptionSelect = (index) => {

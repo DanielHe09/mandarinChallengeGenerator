@@ -8,7 +8,7 @@ export function Layout() {
     return <div className="app-layout">
         <header className="app-header">
             <div className="header-content">
-                <h1>Code Challenge Generator</h1>
+                <h1>Mandarin Challenge Generator</h1>
                 {/*nav bar that is shown if we are signed in*/}
                 <nav>
                     <SignedIn>
