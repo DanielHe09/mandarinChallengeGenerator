@@ -86,7 +86,10 @@ export function ChallengeGenerator() {
 
         {/*displays button to allow user to generate challenge */}
         <button
-            onClick={generateChallenge}
+            onClick={() => {
+                generateChallenge();
+                resetSelection();
+            }}
             //the button is disabled either when isLoading is true oor when quota_remaining === 0
             disabled={isLoading || quota?.quota_remaining === 0}
             className="generate-button"
@@ -97,6 +100,6 @@ export function ChallengeGenerator() {
             <p>{error}</p>    
         </div>}
 
-        {challenge && <MCQChallenge challenge={challenge}/>}
+        {challenge && <MCQChallenge key={challenge.id} challenge={challenge}/>}
     </div>
 }
