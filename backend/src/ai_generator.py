@@ -25,7 +25,7 @@ def generate_challenge_with_ai(difficulty: str) -> Dict[str, Any]:
     - Use plausible distractors: minimal pairs, near-synonyms, wrong measure words, incorrect word order, or aspect/particle errors.
     - Keep content culturally neutral and classroom-safe.
 
-    For easy questions: Very short, clear recognition tasks. Match characters to meaning, tones, or simple vocab. Example: “Which one means 'apple'?”
+    For easy questions: Very short, clear recognition tasks. Match characters to meaning, tones, or simple vocab. Example: “Which one means 'apple'?” Don't ask user for 'which character means 'water''
     For medium questions: Slightly longer sentences (≤15 characters). Grammar fill-in-the-blank, short sentence meaning, or basic comprehension.
     For hard questions: Short passages (20–40 characters) or tricky grammar distinctions, but still answerable in one multiple-choice selection. Examples:
         Pick the correct sentence order from 4 options.
@@ -55,7 +55,7 @@ def generate_challenge_with_ai(difficulty: str) -> Dict[str, Any]:
             ],
             response_format={"type": "json_object"},
             #the higher temperature you give the more random and creative a response the model wil give
-            temperature=0.5
+            temperature=0.8
         )
 
 
