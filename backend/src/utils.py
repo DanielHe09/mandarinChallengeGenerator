@@ -37,7 +37,7 @@ def authenticate_and_get_user_details(request):
 
         #what to do if the request_state says they're not signed in
         if not request_state.is_signed_in:
-            raise HTTPException(status_code=401, detail="Invalid token")
+            raise HTTPException(status_code=401, detail=f"Invalid token {request_state.__dict__}")
 
         #get the user id from the JWT token payload
         user_id = request_state.payload.get("sub")
