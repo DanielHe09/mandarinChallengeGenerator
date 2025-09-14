@@ -1,6 +1,7 @@
 //custom-made react hook that allows us to send a request with the clerk token to our backend
 
 import {useAuth} from "@clerk/clerk-react"
+const API_BASE = import.meta.env.VITE_API_BASE_URL
 
 export const useApi = () => {
     const {getToken} = useAuth() //a custom clerk hook to get the clerk token
@@ -16,7 +17,7 @@ export const useApi = () => {
         }
 
         //get make request and get request from backend
-        const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
+        const response = await fetch(`${API_BASE}/api/${endpoint}`, {
             /*
             the three dots is the spread operators, we combine the two objects by spreading their properties.
             any key-value pairs that are not in 'options' we replace with the ones in 'defaultOptions'
