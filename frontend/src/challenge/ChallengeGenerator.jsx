@@ -88,7 +88,6 @@ export function ChallengeGenerator() {
         <button
             onClick={() => {
                 generateChallenge();
-                resetSelection();
             }}
             //the button is disabled either when isLoading is true oor when quota_remaining === 0
             disabled={isLoading || quota?.quota_remaining === 0}
