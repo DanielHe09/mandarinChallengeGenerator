@@ -3,8 +3,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 
+
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///database.db")#second parameter is the fallback/backup
 #creating a database connection engine, which connects connects you to SQLite and points to the database.db file in your directory (where your databases is stored)
-engine = create_engine('sqlite:///database.db', echo=True)
+engine = create_engine(DATABASE_URL, echo=True)
 Base = declarative_base()
 
 #this is one database model that will be the template for the database table containing all challenges generated
