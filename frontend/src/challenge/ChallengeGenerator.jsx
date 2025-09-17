@@ -22,6 +22,7 @@ export function ChallengeGenerator() {
     const fetchQuota = async () => {
         try {
             const data = await makeRequest("quota")
+            setQuota(data)
         } catch (error) {
             console.log("Error fetching quota:", error)
         }

@@ -47,7 +47,9 @@ def create_challenge(
     db.add(db_challenge)
     db.commit()
     db.refresh(db_challenge)
+    #what refresh does: now that the row exists in the DB, go back, query it by primary key, and update my Python object with the real values from the database.
     return db_challenge
+    #this does not return the whole table, just the most recent row we added
 
 #gets all the challenges createed a certain user
 def get_user_challenges(db: Session, user_id: str):
