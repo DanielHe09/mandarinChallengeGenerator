@@ -42,6 +42,7 @@ async def generate_challenge(request: ChallengeRequest, http_request: Request, d
         #if there isn't an instance or row in the model, we create one for them
         if not quota:
             create_challenge_quota(db, user_id)
+            print("DEBUG: User didn't have quota so we created an instance/row for them")
 
         quota = reset_quota_if_needed(db, quota)
         print("DEBUG: After reset check, quota:", quota.quota_remaining)
