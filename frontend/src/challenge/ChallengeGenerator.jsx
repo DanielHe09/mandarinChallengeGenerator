@@ -48,7 +48,7 @@ export function ChallengeGenerator() {
     }
 
     {/*determine how long till the user gets more credits (every 24h the user gets more credits) */}
-    const getnextResetTime = () => {
+    const getNextResetTime = () => {
         if (!quota?.last_reset_date) return null
         const resetDate = new Date(quota.last_reset_date)
         resetDate.setHours(resetDate.getHours() + 24)
